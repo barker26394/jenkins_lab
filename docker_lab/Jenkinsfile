@@ -12,11 +12,9 @@ pipeline {
    stages {
         stage('init'){
           steps{
-            script{
-                bat "echo %name_final%"
-                bat "echo %name_container% %tag_imagen% %puerto_imagen%"  
+                echo %name_final%
+                echo %name_container% %tag_imagen% %puerto_imagen%
             
-             }
           }
           
        }
