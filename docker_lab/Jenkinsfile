@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script{
                     bat ''' 
-                         docker stop %name_container%%tag_imagen%%puerto_imagen%
+                         docker stop %name_container%
                     '''
                     }
                     
