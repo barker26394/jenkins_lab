@@ -12,8 +12,9 @@ pipeline {
    stages {
         stage('init'){
           steps{
-                echo "%name_final%"
+                powershell 'echo "%name_final%"'
                 echo "%name_container% %tag_imagen% %puerto_imagen%"
+                bat 'echo "$(docker ps -q --filter name=%name_container%)"'
             
           }
           
