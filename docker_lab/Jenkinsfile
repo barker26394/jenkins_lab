@@ -21,7 +21,7 @@ pipeline {
             
             when {
                 expression { 
-                    DOCKER_EXIST = bat 'docker ps -q --filter name=%name_container%'
+                    DOCKER_EXIST = bat 'echo "$(docker ps -q --filter name=${name_final})"'
                     return  DOCKER_EXIST != '' 
                 }
             }
