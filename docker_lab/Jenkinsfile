@@ -11,7 +11,12 @@ pipeline {
    }
    stages {
         stage('init'){
-          bat 'echo {$params.name_container}'
+          steps{
+            script{
+                bat 'echo {$params.name_container}' 
+             }
+          }
+          
        }
         stage('stop/rm') {
             
