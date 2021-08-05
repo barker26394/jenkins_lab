@@ -7,13 +7,13 @@ pipeline {
         string(name: 'puerto_imagen', defaultValue: '81', description: 'puerto a publicar')
    }
    environment {
-        name_final = '${params.name_container}${params.tag_imagen}${params.puerto_imagen}'
+        name_final = '%name_container%%tag_imagen%%puerto_imagen%'
    }
    stages {
         stage('init'){
           steps{
             script{
-                bat "echo %name_container%"
+                bat "echo %name_final%"
              }
           }
           
