@@ -20,7 +20,7 @@ pipeline {
 
             when {
                 expression { 
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_container})"').trim()
+                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps --all -q --filter name=${name_container})"').trim()
                     return  DOCKER_EXIST != '' 
                 }
             }
