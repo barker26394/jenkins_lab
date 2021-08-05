@@ -23,7 +23,8 @@ pipeline {
             
             when {
                 expression { 
-                    bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name=%name_container%)"').trim()
+                    def x = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name=%name_container%)"').trim()
+                    return x != ''
                 }
             }
             steps {
