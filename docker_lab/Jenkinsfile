@@ -10,8 +10,11 @@ pipeline {
         name_final = '${params.name_container}${params.tag_imagen}${params.puerto_imagen}'
    }
    stages {
+        stage('init'){
+          bat 'echo {$params.name_container}'
+       }
         stage('stop/rm') {
-        
+            
             when {
                 expression { 
                     DOCKER_EXIST = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
