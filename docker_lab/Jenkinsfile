@@ -7,7 +7,7 @@ pipeline {
         string(name: 'puerto_imagen', defaultValue: '81', description: 'puerto a publicar')
     }
     environment {
-        name_final = '${name_container}${tag_imagen}${puerto_imagen}'
+        name_final = '${params.name_container}${params.tag_imagen}${params.puerto_imagen}'
     }
     stages {
           stage('stop/rm') {
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script{
                     bat ''' 
-                    docker build    jobs/dockerweb/ -t ${name_imagen}:${tag_imagen}
+                    docker build    jobs/dockerweb/ -t ${params.name_imagen}:${params.tag_imagen}
                     '''
                     }
                     
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script{
                     bat ''' 
-                        docker run -dp ${puerto_imagen}:80 --name ${name_final} ${name_imagen}:${tag_imagen}
+                        docker run -dp ${params.puerto_imagen}:80 --name ${params.name_final} ${params.name_imagen}:${params.tag_imagen}
  
                     '''
                     }
