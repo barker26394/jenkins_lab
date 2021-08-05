@@ -8,12 +8,12 @@ pipeline {
    }
    environment {
         name_final = '%name_container%%tag_imagen%%puerto_imagen%' 
+        DOCKER_EXIST = bat 'docker ps -q --filter name=%name_container%'
    }
    stages {
         stage('init'){
           steps{
                 powershell 'echo "%name_final%"'
-                DOCKER_EXIST = bat 'docker ps -q --filter name=%name_container%'
                 bat 'echo %DOCKER_EXIST%'
             
           }
