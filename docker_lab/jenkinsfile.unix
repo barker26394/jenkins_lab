@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script{
                     sh ''' 
-                        docker run -dp 80 --name ${name_container} ${name_imagen}:${tag_imagen}
+                        docker run -dp 70123:80 --name ${name_container} ${name_imagen}:${tag_imagen}
  
                     '''
                     }
