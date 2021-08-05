@@ -12,32 +12,16 @@ pipeline {
    stages {
         stage('init'){
           steps{
-                bat 'echo %name_container%'
+            script{
+              bat 'echo %name_container%' 
+              bat 'docker ps -f name=%name_container% -q | xargs --no-run-if-empty docker container stop'
+              bat 'docker container ls -a -fname=%name_container% -q | xargs -r docker container rm'
+            }
           }
           
        }
 
-       stage('stop/rm') {
-            
-            when {
-                expression { 
-                    DOCKER_EXIST = powershell(returnStdout: true, script: 'echo "$(docker ps -q --filter name=%name_container%)"').trim()
-                    return  DOCKER_EXIST != '' 
-                }
-            }
-            steps {
-                script{
-                    bat ''' 
-                         docker stop %name_container%
-                    '''
-                    bat ''' 
-                         docker rm %name_container%
-                    '''
-                    }
-                    
-                }                    
-                                  
-            }
+      
            
         stage('build') {
             steps {
