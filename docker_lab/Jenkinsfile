@@ -23,6 +23,7 @@ pipeline {
             
             when {
                 expression { 
+                    bat 'docker ps -q --filter name=%name_container%'
                     return false
                 }
             }
