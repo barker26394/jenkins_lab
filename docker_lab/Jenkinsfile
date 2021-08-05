@@ -13,7 +13,7 @@ pipeline {
         stage('init'){
           steps{
             script{
-                bat 'echo ${name_container}' 
+                bat "echo {name_container}"
              }
           }
           
