@@ -7,21 +7,21 @@ pipeline {
         string(name: 'puerto_imagen', defaultValue: '81', description: 'puerto a publicar')
     }
     environment {
-        name_final = "%name_container%%tag_imagen%%puerto_imagen%"        
+        name_final = "${name_container}${tag_imagen}${puerto_imagen}"        
     }
     stages {
           stage('stop/rm') {
 
             when {
                 expression { 
-                    DOCKER_EXIST = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name=%name_final%)"').trim()
+                    DOCKER_EXIST = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
                     return  DOCKER_EXIST != '' 
                 }
             }
             steps {
                 script{
                     bat ''' 
-                         docker stop %name_final%
+                         docker stop ${name_final}
                     '''
                     }
                     
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script{
                     bat ''' 
-                    docker build    jobs/dockerweb/ -t %name_imagen%:%tag_imagen%
+                    docker build    jobs/dockerweb/ -t ${name_imagen}:${tag_imagen}
                     '''
                     }
                     
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script{
                     bat ''' 
-                        docker run -dp %puerto_imagen%:80 --name %name_final% %name_imagen%:%tag_imagen%
+                        docker run -dp ${puerto_imagen}:80 --name ${name_final} ${name_imagen}:${tag_imagen}
  
                     '''
                     }
